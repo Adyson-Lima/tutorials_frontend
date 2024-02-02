@@ -1,8 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import api from '../../services/api';
+import api from '../../services/api';
 
 export default function Tutorials(){
+
+  const [my_tutorials, setTutorials] = useState([]);
+  const navigate = useNavigate();
+
+  // read, busca todos os registros na api
+  useEffect(() => {
+    api.get('api/v1/tutorials',{})
+    .then(response => {setTutorials(response.data)})
+  }, []);
 
   return(
 
@@ -18,17 +27,18 @@ export default function Tutorials(){
         <table data-testid="mytable" className="table table-hover">
           <thead>
             <tr>
-              <th scope="col">##</th>
-              <th scope="col">##</th>
-              <th scope="col">##</th>
-              <th scope="col">##</th>
+              <th scope="col">Id</th>
+              <th scope="col">Assunto</th>
+              <th scope="col">Autor</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row"></th>
-                <td></td>
-                <td></td>
+            {my_tutorials.map(tutorial => (
+              <tr key={tutorial.id}>
+                <th scope="row">{tutorial.id}</th>
+                <td>{tutorial.subject}</td>
+                <td>{tutorial.author}</td>
                 <td>
 
                   <button data-testid="mybtn1" type="button"
@@ -38,7 +48,9 @@ export default function Tutorials(){
                   className="btn btn-outline-danger" style={{margin: '2px'}}>Excluir</button>
 
                 </td>
-            </tr>
+              </tr>
+            ))}
+            
           </tbody>
         </table>
 
