@@ -22,6 +22,16 @@ export default function Tutorials(){
     }
   }
 
+  // delete, exclui um registro na api
+  async function deleteTutorial(id){
+    try {
+      await api.delete(`api/v1/tutorials/${id}`,{});
+      setTutorials(my_tutorials.filter(tutorial => tutorial.id !== id));
+    } catch (error) {
+      alert('erro ao excluir elemento');      
+    }
+  }
+
   return(
 
     <div data-testid="mycard" className="card border-primary" style={{marginTop: '20px'}} >
@@ -55,7 +65,8 @@ export default function Tutorials(){
                   onClick={() => updateTutorial(tutorial.id)}>Editar</button>
 
                   <button data-testid="mybtn2" type="button"
-                  className="btn btn-outline-danger" style={{margin: '2px'}}>Excluir</button>
+                  className="btn btn-outline-danger" style={{margin: '2px'}}
+                  onClick={() => deleteTutorial(tutorial.id)}>Excluir</button>
 
                 </td>
               </tr>
