@@ -16,4 +16,8 @@ describe('Testes da tela Tutorials', () => {
     expect(screen.getByTestId('mycard')).toBeInTheDocument();
   });
 
+  it('Existe link Novo em Tutorials?', () => {
+    expect(screen.getByTestId('mylink')).toBeInTheDocument();
+  });
+
 });
